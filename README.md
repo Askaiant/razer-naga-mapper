@@ -3,6 +3,9 @@
 Fork of [razer-naga-2014-key-remap](https://github.com/jpodeszwik/razer-naga-2014-key-remap/tree/master/)
 Thank you, it was a great inspiration 
 
+Currently works only with:
+- Razer Naga X
+
 ## Install
 Clone the repo
 
