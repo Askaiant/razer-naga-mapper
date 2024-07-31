@@ -27,17 +27,18 @@ impl KeyMapper {
 }
 
 fn key_index(key: EV_KEY) -> Option<usize> {
+    println!("{:?}", key);
     match key {
-        KEY_1 => Some(0),
-        KEY_2 => Some(1),
-        KEY_3 => Some(2),
-        KEY_4 => Some(3),
-        KEY_5 => Some(4),
-        KEY_6 => Some(5),
-        KEY_7 => Some(6),
-        KEY_8 => Some(7),
-        KEY_9 => Some(8),
-        KEY_0 => Some(9),
+        KEY_KP1 => Some(0),
+        KEY_KP2 => Some(1),
+        KEY_KP3 => Some(2),
+        KEY_KP4 => Some(3),
+        KEY_KP5 => Some(4),
+        KEY_KP6 => Some(5),
+        KEY_KP7 => Some(6),
+        KEY_KP8 => Some(7),
+        KEY_KP9 => Some(8),
+        KEY_KP0 => Some(9),
         KEY_MINUS => Some(10),
         KEY_EQUAL => Some(11),
         _ => None
