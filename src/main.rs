@@ -48,18 +48,25 @@ fn main() {
     let mapped_keys = key_mapper::KeyMapper::default();
 
     let mut virtual_device = input_device::create().unwrap();
+    let mut failed_finding = false;
     loop {
         let device = get_naga_device();
 
         match device {
             Ok(dev) => {
+                failed_finding = false;
                 let res = event_mapper::map_events(mapped_keys, dev, &mut virtual_device);
                 match res.err() {
                     Some(e) => eprintln!("Error mapping events: {}", e),
                     None => eprintln!("Map events returned Ok which was not expected")
                 }
             }
-            Err(e) => eprintln!("Error getting device: {}", e)
+            Err(e) => {
+                if !failed_finding {
+                    eprintln!("Error getting device: {}", e);
+                    failed_finding = true;
+                }
+            }
         }
     }
 }
