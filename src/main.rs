@@ -18,12 +18,18 @@ fn get_naga_device() -> Result<Device, String> {
     for path_result in paths {
         let file = match File::open(path_result.unwrap().path()) {
             Ok(f) => f,
-            Err(_) => { continue; }
+            Err(e) => {
+                println!("Error opening file: {}", e);
+                continue;
+            }
         };
 
         let mut device = match Device::new_from_file(file) {
             Ok(d) => d,
-            Err(_) => { continue; }
+            Err(e) => {
+                println!("Error creating device: {}", e);
+                continue;
+            }
         };
 
         if device.name().unwrap_or("").eq("Razer Razer Naga X")
