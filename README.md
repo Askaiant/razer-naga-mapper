@@ -19,7 +19,7 @@ With `sudo cp ./target/release/razer-naga-mapper /usr/local/bin/
 You can run it as root `sudo /usr/local/bin/razer-naga-mapper`
 
 ### Systemd
-Or you can create service file in `sudo touch /etc/systemd/system/razer-naga-mapper`
+Or you can create service file in `sudo touch /etc/systemd/system/razer-naga-mapper.service`
 
 Paste in the following code snippet
 
