@@ -7,6 +7,7 @@ use evdev_rs::{Device, DeviceWrapper, GrabMode};
 
 // static RAZER_VENDOR_ID: u16 = 0x1532;
 // static RAZER_NAGA_PRODUCT_IDS: [u16; 1] = [0x0096];
+static RAZER_NAGA_NAMES: [&str; 2] = ["Razer Razer Naga X", "Razer Razer Naga 2014"];
 
 const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
@@ -32,8 +33,8 @@ fn get_naga_device() -> Result<Device, String> {
             }
         };
 
-        if device.name().unwrap_or("").eq("Razer Razer Naga X")
-            && device.phys().unwrap().ends_with("/input2") {
+        if RAZER_NAGA_NAMES.iter().any(|&name|
+            device.name().unwrap_or("").starts_with(name)) && device.phys().unwrap().ends_with("/input2") {
             device.grab(GrabMode::Grab).map_err(|e| format!("Could not grab device: {}", e))?;
             return Ok(device);
         }

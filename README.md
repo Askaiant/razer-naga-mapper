@@ -5,6 +5,7 @@ Thank you, it was a great inspiration
 
 Currently works only with:
 - Razer Naga X
+- Razer Naga 2014
 
 ## Install
 Clone the repo
