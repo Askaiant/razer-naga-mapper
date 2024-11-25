@@ -6,6 +6,7 @@ Thank you, it was a great inspiration
 Currently works only with:
 - Razer Naga X
 - Razer Naga 2014
+- Razer Naga V2 HyperSpeed
 
 ## Install
 Clone the repo
