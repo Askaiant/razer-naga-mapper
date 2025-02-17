@@ -1,33 +1,74 @@
 use evdev_rs::enums::EV_KEY;
 use evdev_rs::enums::EV_KEY::*;
 use uinput::event::keyboard::Key;
-
+use uinput::event::keyboard::KeyPad;
+use uinput::event::Keyboard;
 
 #[derive(Copy, Clone)]
 pub struct KeyMapper {
-    keys: [Key; 12]
+    keys: [Keyboard; 12],
 }
 
-const KEYSET_1: [Key; 12] = [Key::F1, Key::F2, Key::F3, Key::F4, Key::F5, Key::F6, Key::F7, Key::F8, Key::F9, Key::F10, Key::Minus, Key::Equal];
 #[allow(dead_code)]
-const KEYSET_2: [Key; 12] = [Key::Home, Key::Up, Key::PageUp, Key::Left, Key::Delete, Key::Right, Key::End, Key::Down, Key::PageDown, Key::Insert, Key::Minus, Key::Equal];
+const KEYSET_1: [Keyboard; 12] = [
+    Keyboard::Key(Key::F1),
+    Keyboard::Key(Key::F2),
+    Keyboard::Key(Key::F3),
+    Keyboard::Key(Key::F4),
+    Keyboard::Key(Key::F5),
+    Keyboard::Key(Key::F6),
+    Keyboard::Key(Key::F7),
+    Keyboard::Key(Key::F8),
+    Keyboard::Key(Key::F9),
+    Keyboard::Key(Key::F10),
+    Keyboard::Key(Key::Minus),
+    Keyboard::Key(Key::Equal),
+];
 
+#[allow(dead_code)]
+const KEYSET_2: [Keyboard; 12] = [
+    Keyboard::Key(Key::Home),
+    Keyboard::Key(Key::Up),
+    Keyboard::Key(Key::PageUp),
+    Keyboard::Key(Key::Left),
+    Keyboard::Key(Key::Delete),
+    Keyboard::Key(Key::Right),
+    Keyboard::Key(Key::End),
+    Keyboard::Key(Key::Down),
+    Keyboard::Key(Key::PageDown),
+    Keyboard::Key(Key::Insert),
+    Keyboard::Key(Key::Minus),
+    Keyboard::Key(Key::Equal),
+];
+
+const KEYSET_3: [Keyboard; 12] = [
+    Keyboard::KeyPad(KeyPad::_1),
+    Keyboard::KeyPad(KeyPad::_2),
+    Keyboard::KeyPad(KeyPad::_3),
+    Keyboard::KeyPad(KeyPad::_4),
+    Keyboard::KeyPad(KeyPad::_5),
+    Keyboard::KeyPad(KeyPad::_6),
+    Keyboard::KeyPad(KeyPad::_7),
+    Keyboard::KeyPad(KeyPad::_8),
+    Keyboard::KeyPad(KeyPad::_9),
+    Keyboard::KeyPad(KeyPad::_0),
+    Keyboard::KeyPad(KeyPad::Minus),
+    Keyboard::KeyPad(KeyPad::Equal),
+];
 impl KeyMapper {
     pub fn default() -> KeyMapper {
-        KeyMapper {
-            keys: KEYSET_1
-        }
+        KeyMapper { keys: KEYSET_3 }
     }
 
-    pub fn map_key(self, key: EV_KEY) -> Option<Key> {
-        return key_index(key)
-            .and_then(|i| self.keys.get(i))
-            .map(|k| *k);
+    pub fn map_key(self, key: EV_KEY) -> Option<Keyboard> {
+        key_index(key).and_then(|i| self.keys.get(i)).map(|k| *k)
     }
 }
 
 fn key_index(key: EV_KEY) -> Option<usize> {
-    println!("{:?}", key);
+    if cfg!(debug_assertions) {
+        println!("{:?}", key);
+    }
     match key {
         KEY_KP1 | KEY_1 => Some(0),
         KEY_KP2 | KEY_2 => Some(1),
@@ -41,6 +82,6 @@ fn key_index(key: EV_KEY) -> Option<usize> {
         KEY_KP0 | KEY_0 => Some(9),
         KEY_MINUS => Some(10),
         KEY_EQUAL => Some(11),
-        _ => None
+        _ => None,
     }
 }
